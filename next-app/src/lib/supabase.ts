@@ -1,18 +1,9 @@
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+import { createClient } from "@supabase/supabase-js"
 
 // Optional: Define database types for better autocomplete
 export type Database = {
   public: {
-    tables: {
+    Tables: {  // ✅ Capital T
       orders: {
         Row: {
           id: string
@@ -36,8 +27,43 @@ export type Database = {
         Insert: any
         Update: any
       }
-      order_items: any
-      addresses: any
+
+      order_items: {
+        Row: any
+        Insert: any
+        Update: any
+      }
+
+      addresses: {
+        Row: any
+        Insert: any
+        Update: any
+      }
+      products: {
+        Row: any
+        Insert: any
+        Update: any
+      }
+
+      product_images: {
+        Row: any
+        Insert: any
+        Update: any
+      }
     }
   }
 }
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    "Missing Supabase environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  )
+}
+
+export const supabase = createClient(
+  supabaseUrl,
+  supabaseAnonKey
+)
